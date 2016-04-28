@@ -1,4 +1,4 @@
-package com.texus.butterknifeexample;
+package texus.butterknifeimplemantaion;
 
 import org.junit.Test;
 
