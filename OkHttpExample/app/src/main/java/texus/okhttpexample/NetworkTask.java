@@ -29,8 +29,8 @@ public class NetworkTask extends AsyncTask<Void, Void, Void> {
         client = new OkHttpClient();
         try {
             Log.e(MainActivity.TAG_LOG,"Calling2......");
-//            String resp = run("http://115.249.156.254/EDservicesfc/eDinette.asmx/Ping");
-            String resp = run("http://google.com");
+            String resp = run("http://115.249.156.254/EDservicesfc/eDinette.asmx/Ping");
+//            String resp = run("http://google.com");
             Log.e(MainActivity.TAG_LOG,"Response:" + resp);
         } catch ( IOException e ) {e.printStackTrace();}
 
