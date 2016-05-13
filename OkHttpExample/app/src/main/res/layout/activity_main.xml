@@ -16,4 +16,13 @@
         android:layout_height="wrap_content"
         android:onClick="doNetworkOperation"
         android:text="Network Operation"/>
+
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_below="@+id/btnNetworkOperation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        />
+
 </RelativeLayout>
