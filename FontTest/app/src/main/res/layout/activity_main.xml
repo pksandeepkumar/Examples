@@ -24,13 +24,13 @@
             android:text="Font 1"/>
 
         <Button
-            android:onClick="setFont1"
+            android:onClick="setFont2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Font 2"/>
 
         <Button
-            android:onClick="setFont1"
+            android:onClick="setFont3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Font 3"/>
@@ -40,7 +40,9 @@
     <TextView
         android:id="@+id/tvText"
         android:layout_below="@+id/llLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="30sp"
+        android:scrollbars="vertical"
         android:text="In android, you can define your own custom fonts for the strings in your application. You just need to download the required font from the internet, and then place it in assets/fonts folder."/>
 </RelativeLayout>
