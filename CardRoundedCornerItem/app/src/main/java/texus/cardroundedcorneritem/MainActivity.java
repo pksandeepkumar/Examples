@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -68,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
                 .load(image)
 //                .resize(dp2px(220), 0)
                 .into(imageView);
+    }
+
+
+    public void doClickOperation(View view) {
+        Toast.makeText(MainActivity.this,"Cliked!!!!!!", Toast.LENGTH_LONG).show();
     }
 
     public int dp2px(int dp) {

@@ -32,6 +32,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="5dp"
+                android:clickable="true"
+
                 >
 
                 <TextView
@@ -63,7 +65,7 @@
                     android:layout_height="80dp"
                     android:gravity="center"
                     android:orientation="vertical"
-
+                    android:onClick="doClickOperation"
                     android:padding="16dp">
 
                     <TextView
