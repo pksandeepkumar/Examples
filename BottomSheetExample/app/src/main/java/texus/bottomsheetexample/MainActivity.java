@@ -59,8 +59,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
             case R.id.button_3: {
-                BottomSheetDialogFragment bottomSheetDialogFragment = new TutsPlusBottomSheetDialogFragment();
-                bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
+                BottomSheetDialogFragment bottomSheetDialogFragment
+                        = new TutsPlusBottomSheetDialogFragment();
+                bottomSheetDialogFragment.show(getSupportFragmentManager(),
+                        bottomSheetDialogFragment.getTag());
                 break;
             }
         }
