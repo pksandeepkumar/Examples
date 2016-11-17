@@ -10,8 +10,51 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="sbl.com.alarmmngrnetwrkoprations.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:id="@+id/btnLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:orientation="horizontal"
+        android:weightSum="2"
+        >
+
+        <Button
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Log DB"
+            android:onClick="logDb"
+            android:layout_margin="5dp"
+            />
+
+        <Button
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Clear DB"
+            android:onClick="clearDB"
+            android:layout_margin="5dp"
+            />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnLayout">
+        <LinearLayout
+            android:id="@+id/llHolder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+
+
 </RelativeLayout>
