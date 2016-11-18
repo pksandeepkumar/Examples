@@ -3,6 +3,7 @@
     package="sbl.com.alarmmngrnetwrkoprations">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -20,10 +21,10 @@
 
 
         <receiver android:name="sbl.com.alarmmngrnetwrkoprations.alarm_manager.AlarmReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            </intent-filter>
-        </receiver>
+        <intent-filter>
+            <action android:name="android.intent.action.BOOT_COMPLETED"/>
+        </intent-filter>
+    </receiver>
 
         <!-- Will not be called unless the application explicitly enables it -->
         <receiver android:name="sbl.com.alarmmngrnetwrkoprations.alarm_manager.DeviceBootReceiver"

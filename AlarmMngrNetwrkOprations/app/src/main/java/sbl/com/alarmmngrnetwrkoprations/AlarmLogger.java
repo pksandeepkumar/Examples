@@ -38,6 +38,21 @@ public class AlarmLogger {
         }
     }
 
+    public static ArrayList<AlarmLogger> getAllAlarmLogger(Databases db) {
+        ArrayList<AlarmLogger> objects = new ArrayList<AlarmLogger>();
+        SQLiteDatabase dbRead = db.getReadableDatabase();
+        String query = "select * from " + TABLE_NAME ;
+        Cursor c = dbRead.rawQuery(query, null);
+        if (c.moveToFirst()) {
+            do {
+                objects.add(getAnObjectFromCursor(c));
+            } while ( c.moveToNext()) ;
+        }
+        c.close();
+        dbRead.close();
+        return objects;
+    }
+
     public static void insertObject(Databases db, AlarmLogger object) {
         if( object == null) return;
         SQLiteDatabase sqld = db.getWritableDatabase();

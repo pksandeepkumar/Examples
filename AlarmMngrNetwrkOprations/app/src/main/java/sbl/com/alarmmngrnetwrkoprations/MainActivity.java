@@ -9,17 +9,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import sbl.com.alarmmngrnetwrkoprations.alarm_manager.AlarmReceiver;
+import sbl.com.alarmmngrnetwrkoprations.pojos.CurrencyValuePOJO;
+import sbl.com.alarmmngrnetwrkoprations.pojos.Fields;
+import sbl.com.alarmmngrnetwrkoprations.pojos.Meta;
+import sbl.com.alarmmngrnetwrkoprations.pojos.Resource;
+import sbl.com.alarmmngrnetwrkoprations.pojos.Resource_;
 import sbl.com.alarmmngrnetwrkoprations.utilities.Utility;
+import sbl.com.alarmmngrnetwrkoprations.webservice.ServiceGenerator;
+import sbl.com.alarmmngrnetwrkoprations.webservice.WebAPI;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,15 +46,75 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void getCurrenctyValue( View view) {
+        Call<CurrencyValuePOJO> call = getServiceCall();
+        call.enqueue(new Callback<CurrencyValuePOJO>() {
+            @Override
+            public void onResponse(Call<CurrencyValuePOJO> call,
+                                   Response<CurrencyValuePOJO> response) {
+                CurrencyValuePOJO object = response.body();
+                if(object == null) return;
+                sbl.com.alarmmngrnetwrkoprations.pojos.List list = object.getList();
+                if( list == null) return;
+                List<Resource> res = list.getResources();
+                if( res == null) return;
+                Fields indianField = null;
+                for(Resource obj : res) {
+                    Resource_ resource_ = obj.getResource();
+                    Fields fields = resource_.getFields();
+                    if(fields.getName().equals("USD/INR")) {
+                        indianField = fields;
+                        break;
+                    }
+                }
+                if(indianField != null) {
+                    Toast.makeText(MainActivity.this,"USD:" + indianField.getPrice(),
+                            Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<CurrencyValuePOJO> call, Throwable t) {
+                Toast.makeText(MainActivity.this,"Error:GetService" + t.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+
+        });
+    }
+
+    public Call<CurrencyValuePOJO> getServiceCall() {
+        WebAPI serviceApi =  ServiceGenerator.createService(WebAPI.class);
+        Call<CurrencyValuePOJO> call = serviceApi.getCurrencyValues();
+        return call;
+    }
+
     public void logDb( View view) {
         llHolder = (LinearLayout) findViewById(R.id.llHolder);
+        llHolder.removeAllViews();
         Databases db = new Databases(this);
-        ArrayList<AlarmLogger> logger = AlarmLogger.
+        ArrayList<AlarmLogger> logger = AlarmLogger.getAllAlarmLogger(db);
+        for(AlarmLogger object: logger) {
+            TextView tv = new TextView(this);
+            tv.setText(object.log_message + " @:" + getDateAndTime(object.dateAndTime));
+            llHolder.addView(tv);
+        }
         db.close();
     }
 
-    public void  clearDB( View view) {
+    public static String getDateAndTime(long milliSeconds) {
+//        "2016-11-22 06:13:19.259148"; "YYYY-MM-DD HH:MM:SS"
+        String dateFormat = "yyyy-MM-dd hh:mm:ss";
+        SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliSeconds);
+        return formatter.format(calendar.getTime());
+    }
 
+    public void  clearDB( View view) {
+        Databases db = new Databases(this);
+        AlarmLogger.deleteTable(db);
+        db.close();
     }
 
     public void startAlarm() {
