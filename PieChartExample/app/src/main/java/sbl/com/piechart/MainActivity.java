@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(11f);
         data.setValueTextColor(Color.WHITE);
-        
+
 
         //Set Chart description
         Description description = new Description();
